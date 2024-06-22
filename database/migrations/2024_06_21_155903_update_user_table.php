@@ -13,8 +13,14 @@ return new class extends Migration {
         Schema::table('users', function($table) {
             $table->string('nickname');
             $table->string('comment');
-            $table->string('user_id');
         });
     }
-  
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('object_values');
+    }
 };
