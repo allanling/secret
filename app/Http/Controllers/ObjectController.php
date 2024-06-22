@@ -50,6 +50,8 @@ class ObjectController extends Controller
             ['value' => $objectValue]
         );
 
+        $aaa = 1;
+
         return response()->json(
             ['data' => ['key' => $objectKey, 'value' => json_decode($objectValue)]],
             201
