@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Controller;
 
-use Database\Seeders\ObjectTableSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use App\Models\ObjectKey;
+use Database\Seeders\ObjectTableSeeder;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\TestCase;
 
 class ObjectControllerTest extends TestCase
 {
@@ -21,15 +21,14 @@ class ObjectControllerTest extends TestCase
             'data' => [
                 '*' => [
                     'key',
-                    'values' =>
-                    [
+                    'values' => [
                         '*' => [
                             'value',
                             'created_at',
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -37,11 +36,11 @@ class ObjectControllerTest extends TestCase
     {
         $aKey = ObjectKey::with('objectValuesLatest')->get()->first();
 
-        $response = $this->getJson('/api/object/' . $aKey->key);
+        $response = $this->getJson('/api/object/'.$aKey->key);
         $latestValueOfAKey = json_decode($aKey->toArray()['object_values_latest'][0]['value']);
 
         $response->assertStatus(200)->assertJsonFragment([
-            $latestValueOfAKey
+            $latestValueOfAKey,
         ]);
     }
 
@@ -51,29 +50,29 @@ class ObjectControllerTest extends TestCase
         $valueOfAKey = $aKey->toArray()['object_values'][1];
         $timeStamp = strtotime($valueOfAKey['created_at']);
 
-        $response = $this->getJson('/api/object/' . $aKey->key . "?timestamp=$timeStamp");
+        $response = $this->getJson('/api/object/'.$aKey->key."?timestamp=$timeStamp");
 
         $response->assertStatus(200)->assertJsonFragment([
-            json_decode($valueOfAKey['value'])
+            json_decode($valueOfAKey['value']),
         ]);
     }
 
     public function test_show_route_with_timestamp_returns_validation_failed_response()
     {
         $aKey = ObjectKey::with('objectValues')->get()->first();
-        $timeStamp = "2024-01-01";
-        $response = $this->getJson('/api/object/' . $aKey->key . "?timestamp=$timeStamp");
+        $timeStamp = '2024-01-01';
+        $response = $this->getJson('/api/object/'.$aKey->key."?timestamp=$timeStamp");
 
         $response->assertStatus(403);
     }
 
     public function test_store_route_returns_successful_response()
     {
-        $key = "aKey";
+        $key = 'aKey';
         $value = '{"test": {"abc": 123, "def": 456}}';
 
         $response = $this->postJson('/api/object', [
-            $key => $value
+            $key => $value,
         ]);
 
         $response->assertStatus(201);
@@ -91,7 +90,7 @@ class ObjectControllerTest extends TestCase
     public function test_store_route_returns_validation_failed_response($key, $value)
     {
         $response = $this->postJson('/api/object', [
-            $key => $value
+            $key => $value,
         ]);
 
         $response->assertStatus(403);

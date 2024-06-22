@@ -18,7 +18,7 @@ class ObjectValueFactory extends Factory
     {
         return [
             'value' => '{"'.fake()->unique()->word().'": "'.fake()->unique()->word().'"}',
-            'created_at' => fake()->dateTime()
+            'created_at' => fake()->dateTime(),
         ];
     }
 }

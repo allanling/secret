@@ -14,12 +14,10 @@ class ObjectController extends Controller
         $objects = ObjectKey::with('objectValuesLimited')
             ->paginate(10);
         $formattedObjects = $objects->map(
-            fn ($object) =>
-            [
+            fn ($object) => [
                 'key' => $object['key'],
                 'values' => collect($object->toArray()['object_values_limited'])->map(
-                    fn ($value) =>
-                    ['value' => json_decode($value['value']), 'created_at' => $value['created_at']]
+                    fn ($value) => ['value' => json_decode($value['value']), 'created_at' => $value['created_at']]
                 ),
             ]
         );
@@ -29,7 +27,6 @@ class ObjectController extends Controller
 
     public function show(string $key, ObjectGetRequest $request)
     {
-
         $timeStamp = $request->input('timestamp', null);
         $foundKey = ObjectKey::with(['objectValues' => function (Builder $query) use ($timeStamp) {
             if ($timeStamp) {
@@ -54,8 +51,7 @@ class ObjectController extends Controller
         );
 
         return response()->json(
-            ['data' =>
-            ['key' => $objectKey, 'value' => json_decode($objectValue)]],
+            ['data' => ['key' => $objectKey, 'value' => json_decode($objectValue)]],
             201
         );
     }

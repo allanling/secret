@@ -28,6 +28,8 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: PHP-CS-Fixer
+      uses: docker://oskarstark/php-cs-fixer-ga
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest with coverage report
       env:
         DB_CONNECTION: sqlite

@@ -9,7 +9,7 @@ class ObjectPostRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $params = $this->all();
-        foreach($params as $key => $value) {
+        foreach ($params as $key => $value) {
             $this->merge(['objectKey' => $key]);
             $this->merge(['objectValue' => $value]);
             break;

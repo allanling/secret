@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ObjectKey extends Model
 {
-
     use HasFactory;
 
     protected $fillable = [
@@ -35,5 +34,4 @@ class ObjectKey extends Model
     {
         return $this->objectValues()->latest();
     }
-
 }
