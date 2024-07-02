@@ -20,7 +20,7 @@ class ObjectPostRequest extends FormRequest
     {
         return [
             'objectKey' => 'required|alpha_dash:ascii|max:255',
-            'objectValue' => 'required|json',
+            'objectValue' => 'nullable|string',
         ];
     }
 }
