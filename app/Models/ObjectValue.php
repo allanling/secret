@@ -35,7 +35,7 @@ class ObjectValue extends Model
 
     public function scopeOnThisDate($query, $timestamp)
     {
-        return $query->where('created_at', '<' , gmdate('Y-m-d H:i:s', $timestamp))
+        return $query->where('created_at', '<', gmdate('Y-m-d H:i:s', $timestamp))
             ->orderBy('created_at', 'desc');
     }
 }
